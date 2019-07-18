@@ -1,0 +1,83 @@
+html {
+    font-size: 1em;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-size: 1rem;
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    max-width: 60em;
+    margin: 0 auto;
+}
+
+p {
+    margin: 1em 0;
+}
+
+form p {
+    padding: 0.5em 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input, button, textarea, select {
+    font-family: OpenSans, Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    padding: 0.5em;
+}
+
+button {
+    padding-left: 0.75em;
+    padding-right: 0.75em;
+}
+
+input, button, textarea {
+    border: 1px solid #444444;
+    border-radius: 0.2em;
+    color: #444444;
+    background-color: #ffffff;
+}
+
+button:hover {
+    background-color: #444444;
+    color: yellow;
+}
+
+[id='currentLocation'] {
+    border-color: transparent;
+    text-decoration: underline;
+}
+
+.alert {
+    border: 1px solid red;
+    border-radius: 1px;
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 1em;
+}
+
+[aria-hidden=true] {
+    display: none;
+}
+
+.geo {
+    display: none;
+}
+
+.has-geo .geo {
+    display: initial;
+}
