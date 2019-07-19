@@ -81,3 +81,32 @@ button:hover {
 .has-geo .geo {
     display: initial;
 }
+
+.forecast table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.forecast th, .forecast td {
+    padding: 0.5em 1em;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    text-align: center;
+}
+
+.forecast th:first-child, .forecast td:first-child {
+    border-left-color: transparent;
+}
+
+.forecast th:last-child, .forecast td:last-child {
+    border-right-color: transparent;
+}
+
+.forecast tr:nth-child(2n + 1) {
+    background-color: #eee;
+}
+
+footer {
+    font-size: 0.875rem;
+    font-style: italic;
+}

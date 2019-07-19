@@ -31,9 +31,10 @@
                 </p>
                 <p><button type="submit">Show weather info</button></p>
 
-                <section class="currentWeather">
+                <section class="currentWeather" id="currentWeather" aria-hidden="true">
+                    <h2>Current weather</h2>
                     <p>
-                        <label for="temperature">Current temperature:</label>
+                        <label for="temperature">Temperature:</label>
                         <output id="temperature" />
                     </p>
                     <p>
@@ -42,6 +43,11 @@
                     </p>
                 </section>
             </form>
+
+           <section id="forecast" class="forecast" aria-hidden="true">
+               <h2>Forecast</h2>
+
+           </section>
         </main>
         <footer>
             <p>Powered by OpenWeatherMap</p>
