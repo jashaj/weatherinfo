@@ -1,2 +1,3 @@
 key.js
 *.code-workspace
+node_modules/

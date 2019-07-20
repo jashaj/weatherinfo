@@ -1,42 +1,36 @@
 'use strict';
-(function (weatherInfo) {
-    if (!weatherInfo.API_KEY) {
-        showError('Configure weatherInfo.API_KEY in key.js');
-        return;
-    }
-
+(function () {
     if (navigator.geolocation) {
         document.documentElement.classList.add('has-geo');
     }
 
-    function WeatherApi(apiKey) {
-        this.apiKey = apiKey;
+    function WeatherApi() {
     }
 
     WeatherApi.prototype = (function () {
-        const API_BASE = `https://api.openweathermap.org/data/2.5/`;
+        const API_BASE = '/api/'; // 'https://api.openweathermap.org/data/2.5/';
         const API_CURRENT_WEATHER = 'weather';
         const API_FIVE_DAY_FORECAST = 'forecast'
 
-        function _getData(api, apiKey, queryParameters) {
-            return window.fetch(`${API_BASE}${api}?appId=${apiKey}&units=metric${queryParameters}`)
+        function _getData(api, queryParameters) {
+            return window.fetch(`${API_BASE}${api}?units=metric${queryParameters}`)
                 .then(response => response.json());
         }
 
         function _getCurrentForCity(city) {
-            return _getData(API_CURRENT_WEATHER, this.apiKey, `&q=${city}`);
+            return _getData(API_CURRENT_WEATHER, `&q=${city}`);
         }
 
         function _getCurrentForCoordinates(longitude, latitude) {
-            return _getData(API_CURRENT_WEATHER, this.apiKey, `&lon=${longitude}&lat=${latitude}`);
+            return _getData(API_CURRENT_WEATHER, `&lon=${longitude}&lat=${latitude}`);
         }
 
         function _getForecastForCity(city) {
-            return _getData(API_FIVE_DAY_FORECAST, this.apiKey, `&q=${city}`);
+            return _getData(API_FIVE_DAY_FORECAST, `&q=${city}`);
         }
 
         function _getForecastForCoordinates(longitude, latitude) {
-            return _getData(API_FIVE_DAY_FORECAST, this.apiKey, `&lon=${longitude}&lat=${latitude}`);
+            return _getData(API_FIVE_DAY_FORECAST, `&lon=${longitude}&lat=${latitude}`);
         }
 
         return {
@@ -47,7 +41,7 @@
         }
     })();
 
-    const weatherApi = new WeatherApi(weatherInfo.API_KEY);
+    const weatherApi = new WeatherApi();
 
     const urlParams = new URLSearchParams(location.search);
     if (urlParams.has('location')) {
@@ -187,7 +181,7 @@
         document.querySelector('#location').value = '';
     }
 
-    
+
 
     function clearError() {
         const alertBox = getAlertBox();
@@ -226,4 +220,4 @@
     function show(element) {
         element.setAttribute('aria-hidden', false);
     }
-})(weatherInfo);
+})();

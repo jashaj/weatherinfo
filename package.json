@@ -1,0 +1,17 @@
+{
+  "name": "weather",
+  "version": "1.0.0",
+  "description": "Weather app",
+  "main": "app.js",
+  "repository": "git@gitlab.com:jashaj/weatherinfo.git",
+  "author": "Jasha Joachimsthal <jashaj@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-http-proxy": "^1.5.1"
+  },
+  "scripts": {
+    "serve": "node app.js"
+  }
+}
