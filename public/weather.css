@@ -70,7 +70,7 @@ button:hover {
     padding: 1em;
 }
 
-[aria-hidden=true] {
+[hidden] {
     display: none;
 }
 
@@ -104,6 +104,10 @@ button:hover {
 
 .forecast tr:nth-child(2n + 1) {
     background-color: #eee;
+}
+
+.forecast img {
+    background-color: #ffffff;
 }
 
 footer {

@@ -85,12 +85,17 @@
             showError('No weather info available for this location. Choose a different location.');
             hide(currentWeather);
         }
-        const { main = {}, name } = weatherInfo;
+        const { main = {}, weather = [{}], name } = weatherInfo;
         const { temp, humidity } = main;
 
         document.querySelector('#temperature').value = formatTemperature(temp);
         document.querySelector('#humidity').value = formatHumidity(humidity);
         document.querySelector('#location').value = name || '';
+
+        const currentCondition = document.querySelector('#currentCondition');
+        currentCondition.innerHTML = '';
+        renderWeatherCondition(weather[0], currentCondition);
+
         show(currentWeather);
     }
 
@@ -113,6 +118,10 @@
         const head = document.createElement('thead');
         head.appendChild(document.createElement('th'));
         const body = document.createElement('tbody');
+        const condition = document.createElement('tr');
+        const conditionLabel = createDomNode('td', 'Condition');
+        conditionLabel.setAttribute('scope', 'row');
+        condition.appendChild(conditionLabel);
         const temperature = document.createElement('tr');
         const temperatureLabel = createDomNode('td', 'Temperature');
         temperatureLabel.setAttribute('scope', 'row');
@@ -123,6 +132,7 @@
         humidityLabel.setAttribute('scope', 'row');
         humidity.appendChild(humidityLabel);
 
+        body.appendChild(condition);
         body.appendChild(temperature);
         body.appendChild(humidity);
         table.appendChild(head);
@@ -139,13 +149,37 @@
             const th = createDomNode('th', dateTimeFormat.format(date));
             th.setAttribute('scope', 'column');
             head.appendChild(th);
-            const { main = {} } = item;
+            const { main = {}, weather = [{}] } = item;
+            const wc = createDomNode('td');
+            renderWeatherCondition(weather[0], wc);
+            condition.appendChild(wc);
             temperature.appendChild(createDomNode('td', formatTemperature(main.temp)));
             humidity.appendChild(createDomNode('td', formatHumidity(main.humidity)));
         });
 
         forecast.appendChild(table);
         show(forecast);
+    }
+
+    function renderWeatherCondition(weatherCondition, wrapperElement) {
+        const {description, icon} = weatherCondition;
+        if (description) {
+            if (icon) {
+                const figure = document.createElement('figure');
+                const caption = createDomNode('figcaption', description);
+    
+                const img = new Image();
+                img.src = `https://openweathermap.org/img/wn/${icon}.png`;
+                img.alt = description;
+                img.setAttribute('aria-hidden', true);
+                figure.appendChild(img);
+                figure.appendChild(caption);
+                wrapperElement.appendChild(figure);
+            }
+            else {
+                wrapperElement.textContent = description;
+            }
+        }
     }
 
 
@@ -214,10 +248,15 @@
     }
 
     function hide(element) {
+        element.setAttribute('hidden', true);
         element.setAttribute('aria-hidden', true);
+
     }
 
     function show(element) {
+        element.removeAttribute('hidden');
         element.setAttribute('aria-hidden', false);
     }
 })();
+
+

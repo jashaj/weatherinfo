@@ -16,7 +16,7 @@
         </header>
         <main>
             <div aria-live="polite">
-                <div id="alert" class="alert" aria-hidden="true">
+                <div id="alert" class="alert" hidden aria-hidden="true">
 
                 </div>
             </div>
@@ -29,8 +29,10 @@
                 </p>
                 <p><button type="submit">Show weather info</button></p>
 
-                <section class="currentWeather" id="currentWeather" aria-hidden="true">
+                <section class="currentWeather" id="currentWeather" hidden aria-hidden="true">
                     <h2>Current weather</h2>
+                    <div id="currentCondition">
+                    </div>
                     <p>
                         <label for="temperature">Temperature:</label>
                         <output id="temperature" />
@@ -42,7 +44,7 @@
                 </section>
             </form>
 
-           <section id="forecast" class="forecast" aria-hidden="true">
+           <section id="forecast" class="forecast" hidden aria-hidden="true">
                <h2>Forecast</h2>
 
            </section>
