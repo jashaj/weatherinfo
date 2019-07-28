@@ -102,9 +102,9 @@
 
     function renderForecast(weatherInfo) {
         const forecast = document.querySelector('#forecast');
-        const existingForecast = forecast.querySelector('table');
+        const existingForecast = forecast.querySelector('#forecastData');
         if (existingForecast) {
-            existingForecast.parentNode.removeChild(existingForecast);
+            existingForecast.innerHTML = '';
         }
 
         if (weatherInfo.cod != 200) {
@@ -113,28 +113,10 @@
             return;
         }
 
+        show(forecast);
+
         const { list = [] } = weatherInfo;
 
-        const table = document.createElement('table');
-        const head = document.createElement('thead');
-        const headRow = document.createElement('tr');
-        headRow.appendChild(createDomNode('th', 'Time'));
-        head.appendChild(headRow);
-        const body = document.createElement('tbody');
-        const conditionLabel = createDomNode('th', 'Condition');
-        conditionLabel.setAttribute('scope', 'col');
-        headRow.appendChild(conditionLabel);
-        const temperatureLabel = createDomNode('th', 'Temperature');
-        temperatureLabel.setAttribute('scope', 'col');
-        headRow.appendChild(temperatureLabel);
-
-        const humidityLabel = createDomNode('th', 'Humidity');
-        humidityLabel.setAttribute('scope', 'col');
-        headRow.appendChild(humidityLabel);
-
-
-        table.appendChild(head);
-        table.appendChild(body);
         const locale = document.documentElement.getAttribute('lang');
         const dateTimeFormat = new Intl.DateTimeFormat(locale, { weekday: 'short', hour: '2-digit', minute: '2-digit' });
         list.forEach((item) => {
@@ -149,11 +131,9 @@
             row.appendChild(wc);
             row.appendChild(createDomNode('td', formatTemperature(main.temp)));
             row.appendChild(createDomNode('td', formatHumidity(main.humidity)));
-            body.appendChild(row);
+            existingForecast.appendChild(row);
         });
 
-        forecast.appendChild(table);
-        show(forecast);
     }
 
     function renderWeatherCondition(weatherCondition, wrapperElement) {
