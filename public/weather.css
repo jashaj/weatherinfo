@@ -18,7 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 1em;
-    max-width: 60em;
+    max-width: 45em;
     margin: 0 auto;
 }
 
@@ -54,8 +54,8 @@ input, button, textarea {
 }
 
 button:hover {
-    background-color: #444444;
-    color: yellow;
+    background-color: #000000;
+    color: #ED7250;
 }
 
 [id='currentLocation'] {
@@ -85,34 +85,32 @@ button:hover {
 .forecast table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
     word-wrap: break-word;
 }
 
 .forecast th, .forecast td {
     padding: 0.5em 1em;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    text-align: center;
-}
-
-.forecast th:first-child, .forecast td:first-child {
-    border-left-color: transparent;
-}
-
-.forecast th:last-child, .forecast td:last-child {
-    border-right-color: transparent;
+    text-align: left;
 }
 
 .forecast tbody tr:nth-child(2n + 1) {
-    background-color: #eee;
+    background-color: #F9D5CD;
 }
 
 .forecast img {
     background-color: #ffffff;
 }
 
-.forecast figcaption {
+figure {
+    display: flex;
+    align-items: center;
+}
+
+figure > img {
+    margin-right: 1em;
+}
+
+figcaption {
     font-size: 0.875rem;
 }
 

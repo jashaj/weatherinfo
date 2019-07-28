@@ -62,7 +62,6 @@
             const location = formData.get('location');
 
             showWeatherForLocation(location);
-
             event.preventDefault();
         }
     }
@@ -72,6 +71,7 @@
 
         weatherApi.getCurrentForCity(location)
             .then(renderCurrentWeather)
+            .then(updateUrlAndTitle)
             .catch(showError);
 
         weatherApi.getForecastForCity(location)
@@ -97,6 +97,7 @@
         renderWeatherCondition(weather[0], currentCondition);
 
         show(currentWeather);
+        return name;
     }
 
     function renderForecast(weatherInfo) {
@@ -117,45 +118,38 @@
         const table = document.createElement('table');
         const head = document.createElement('thead');
         const headRow = document.createElement('tr');
-        headRow.appendChild(document.createElement('th'));
+        headRow.appendChild(createDomNode('th', 'Time'));
         head.appendChild(headRow);
         const body = document.createElement('tbody');
-        const condition = document.createElement('tr');
         const conditionLabel = createDomNode('th', 'Condition');
-        conditionLabel.setAttribute('scope', 'row');
-        condition.appendChild(conditionLabel);
-        const temperature = document.createElement('tr');
+        conditionLabel.setAttribute('scope', 'col');
+        headRow.appendChild(conditionLabel);
         const temperatureLabel = createDomNode('th', 'Temperature');
-        temperatureLabel.setAttribute('scope', 'row');
-        temperature.appendChild(temperatureLabel);
+        temperatureLabel.setAttribute('scope', 'col');
+        headRow.appendChild(temperatureLabel);
 
-        const humidity = document.createElement('tr');
         const humidityLabel = createDomNode('th', 'Humidity');
-        humidityLabel.setAttribute('scope', 'row');
-        humidity.appendChild(humidityLabel);
+        humidityLabel.setAttribute('scope', 'col');
+        headRow.appendChild(humidityLabel);
 
-        body.appendChild(condition);
-        body.appendChild(temperature);
-        body.appendChild(humidity);
+
         table.appendChild(head);
         table.appendChild(body);
-        const dateOptions = { weekday: 'narrow', hour: '2-digit' };
-        const dateTimeFormat = new Intl.DateTimeFormat('en', dateOptions);
-        list.forEach((item, index) => {
-            if (index % 4 !== 0) {
-                return;
-            }
-
+        const locale = document.documentElement.getAttribute('lang');
+        const dateTimeFormat = new Intl.DateTimeFormat(locale, { weekday: 'short', hour: '2-digit', minute: '2-digit' });
+        list.forEach((item) => {
+            const row = document.createElement('tr');
             const date = new Date(item.dt * 1000);
             const th = createDomNode('th', dateTimeFormat.format(date));
-            th.setAttribute('scope', 'col');
-            headRow.appendChild(th);
+            th.setAttribute('scope', 'row');
+            row.appendChild(th);
             const { main = {}, weather = [{}] } = item;
             const wc = createDomNode('td');
             renderWeatherCondition(weather[0], wc);
-            condition.appendChild(wc);
-            temperature.appendChild(createDomNode('td', formatTemperature(main.temp)));
-            humidity.appendChild(createDomNode('td', formatHumidity(main.humidity)));
+            row.appendChild(wc);
+            row.appendChild(createDomNode('td', formatTemperature(main.temp)));
+            row.appendChild(createDomNode('td', formatHumidity(main.humidity)));
+            body.appendChild(row);
         });
 
         forecast.appendChild(table);
@@ -203,6 +197,7 @@
 
         weatherApi.getCurrentForCoordinates(crd.longitude, crd.latitude)
             .then(renderCurrentWeather)
+            .then(updateUrlAndTitle)
             .catch(showError);
 
         weatherApi.getForecastForCoordinates(crd.longitude, crd.latitude)
@@ -214,6 +209,12 @@
         console.debug(`ERROR(${err.code}): ${err.message}`);
         showError('Geolocation lookup failed');
         document.querySelector('#location').value = '';
+    }
+
+    function updateUrlAndTitle(location) {
+        const title = `Weather info for ${location}`;
+        document.title = title;
+        window.history.replaceState({}, title, `?location=${location}`)
     }
 
     function clearError() {
