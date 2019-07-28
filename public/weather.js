@@ -116,19 +116,21 @@
 
         const table = document.createElement('table');
         const head = document.createElement('thead');
-        head.appendChild(document.createElement('th'));
+        const headRow = document.createElement('tr');
+        headRow.appendChild(document.createElement('th'));
+        head.appendChild(headRow);
         const body = document.createElement('tbody');
         const condition = document.createElement('tr');
-        const conditionLabel = createDomNode('td', 'Condition');
+        const conditionLabel = createDomNode('th', 'Condition');
         conditionLabel.setAttribute('scope', 'row');
         condition.appendChild(conditionLabel);
         const temperature = document.createElement('tr');
-        const temperatureLabel = createDomNode('td', 'Temperature');
+        const temperatureLabel = createDomNode('th', 'Temperature');
         temperatureLabel.setAttribute('scope', 'row');
         temperature.appendChild(temperatureLabel);
 
         const humidity = document.createElement('tr');
-        const humidityLabel = createDomNode('td', 'Humidity');
+        const humidityLabel = createDomNode('th', 'Humidity');
         humidityLabel.setAttribute('scope', 'row');
         humidity.appendChild(humidityLabel);
 
@@ -137,18 +139,17 @@
         body.appendChild(humidity);
         table.appendChild(head);
         table.appendChild(body);
-        const dateOptions = { weekday: 'long' };
+        const dateOptions = { weekday: 'narrow', hour: '2-digit' };
         const dateTimeFormat = new Intl.DateTimeFormat('en', dateOptions);
-        list.forEach((item) => {
-            const date = new Date(item.dt * 1000);
-
-            if (date.getUTCHours() < 11 || date.getUTCHours() > 13) {
+        list.forEach((item, index) => {
+            if (index % 4 !== 0) {
                 return;
             }
 
+            const date = new Date(item.dt * 1000);
             const th = createDomNode('th', dateTimeFormat.format(date));
-            th.setAttribute('scope', 'column');
-            head.appendChild(th);
+            th.setAttribute('scope', 'col');
+            headRow.appendChild(th);
             const { main = {}, weather = [{}] } = item;
             const wc = createDomNode('td');
             renderWeatherCondition(weather[0], wc);
@@ -162,12 +163,12 @@
     }
 
     function renderWeatherCondition(weatherCondition, wrapperElement) {
-        const {description, icon} = weatherCondition;
+        const { description, icon } = weatherCondition;
         if (description) {
             if (icon) {
                 const figure = document.createElement('figure');
                 const caption = createDomNode('figcaption', description);
-    
+
                 const img = new Image();
                 img.src = `https://openweathermap.org/img/wn/${icon}.png`;
                 img.alt = description;
@@ -215,8 +216,6 @@
         document.querySelector('#location').value = '';
     }
 
-
-
     function clearError() {
         const alertBox = getAlertBox();
         alertBox.textContent = '';
@@ -240,7 +239,7 @@
     }
 
     function formatTemperature(temperature) {
-        return isNaN(temperature) ? '' : `${temperature} \u00B0C`;
+        return isNaN(temperature) ? '' : `${Math.round(temperature)}\u00B0C`;
     }
 
     function formatHumidity(humidity) {
@@ -248,7 +247,7 @@
     }
 
     function hide(element) {
-        element.setAttribute('hidden', true);
+        element.setAttribute('hidden', 'hidden');
         element.setAttribute('aria-hidden', true);
 
     }

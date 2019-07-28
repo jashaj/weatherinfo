@@ -85,6 +85,8 @@ button:hover {
 .forecast table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 .forecast th, .forecast td {
@@ -102,12 +104,16 @@ button:hover {
     border-right-color: transparent;
 }
 
-.forecast tr:nth-child(2n + 1) {
+.forecast tbody tr:nth-child(2n + 1) {
     background-color: #eee;
 }
 
 .forecast img {
     background-color: #ffffff;
+}
+
+.forecast figcaption {
+    font-size: 0.875rem;
 }
 
 footer {
