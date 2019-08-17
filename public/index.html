@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="weather.css" />
-    <script defer src="weather.js"></script>
+    <script defer type="module" src="weather.js"></script>
 </head>
 
 <body>
@@ -16,9 +16,7 @@
         </header>
         <main>
             <div aria-live="polite">
-                <div id="alert" class="alert" hidden aria-hidden="true">
-
-                </div>
+                <div id="alert" class="alert" hidden aria-hidden="true"></div>
             </div>
 
             <form id="locationForm">
@@ -29,22 +27,20 @@
                 </p>
                 <p><button type="submit">Show weather info</button></p>
 
-                <section class="currentWeather" id="currentWeather" hidden aria-hidden="true">
-                    <h2>Current weather</h2>
-                    <div id="currentCondition">
-                    </div>
-                    <p>
-                        <label for="temperature">Temperature:</label>
-                        <output id="temperature" />
-                    </p>
-                    <p>
-                        <label for="humidity">Humidity:</label>
-                        <output id="humidity" />
-                    </p>
-                </section>
             </form>
 
-           <section id="forecast" class="forecast" hidden aria-hidden="true">
+            <section class="currentWeather" id="currentWeather" hidden aria-hidden="true">
+                <h2>Current weather</h2>
+                <div class="currentCondition"></div>
+                <dl>
+                    <dt>Temperature:</dt>
+                    <dd class="temperature"></dd>
+                    <dt>Humidity:</dt>
+                    <dd class="humidity"></dd>
+                </dl>
+            </section>
+
+            <section id="forecast" class="forecast" hidden aria-hidden="true">
                <h2>Forecast</h2>
                 <table>
                     <thead>
@@ -55,14 +51,14 @@
                             <th scope="col">Humidity</th>
                         </tr>
                     </thead>
-                    <tbody id="forecastData"></tbody>
+                    <tbody class="forecastData"></tbody>
                 </table>
            </section>
         </main>
         <footer>
-            <p>Data and icons: <a href="https://openweathermap.org" rel="noopener noreferrer">OpenWeatherMap</a></p>
+            <p>Data and icons: <a href="https://openweathermap.org" target="_blank" rel="noopener noreferrer">OpenWeatherMap</a></p>
         </footer>
-    </article>
+    </div>
 </body>
 
 </html>
