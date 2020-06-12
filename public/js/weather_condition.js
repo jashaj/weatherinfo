@@ -1,30 +1,29 @@
 'use strict';
 
-import * as du from './domutils.js';
+class WeatherIcon extends HTMLElement {
+  constructor() {
+    super();
 
-function createImage(icon, alt) {
-  const img = new Image();
-  img.src = `https://openweathermap.org/img/wn/${icon}.png`;
-  img.alt = alt;
-  img.setAttribute('aria-hidden', true);
-  return img;
+    const templateContent = document.querySelector('#t-weather-icon').content;
+    this.attachShadow({ mode: 'open' }).appendChild(templateContent.cloneNode(true));
+  }
+
+  connectedCallback() {
+    this.shadowRoot.querySelector('figcaption').innerText = this.getAttribute('description');
+    const icon = this.getAttribute('icon');
+    this.shadowRoot.querySelector('img').setAttribute('src', `https://openweathermap.org/img/wn/${icon}.png`);
+  }
 }
 
-function createFigure(description, icon) {
-  const caption = du.createDomNode('figcaption', description);
-  const img = createImage(icon, description);
-
-  return du.createDomNode('figure', img, caption);
-}
+customElements.define("weather-icon", WeatherIcon);
 
 export function renderWeatherCondition(weatherCondition, wrapperElement) {
-  const {description, icon} = weatherCondition;
+  const { description, icon } = weatherCondition;
   if (!description) {
     return;
   }
   if (icon) {
-    const figure = createFigure(description, icon);
-    wrapperElement.appendChild(figure);
+    wrapperElement.innerHTML = `<weather-icon description="${description}" icon="${icon}"></weather-icon>`
   } else {
     wrapperElement.textContent = description;
   }

@@ -41,7 +41,7 @@
             </section>
 
             <section id="forecast" class="forecast" hidden aria-hidden="true">
-               <h2>Forecast</h2>
+                <h2>Forecast</h2>
                 <table>
                     <thead>
                         <tr>
@@ -53,12 +53,36 @@
                     </thead>
                     <tbody class="forecastData"></tbody>
                 </table>
-           </section>
+            </section>
         </main>
         <footer>
-            <p>Data and icons: <a href="https://openweathermap.org" target="_blank" rel="noopener noreferrer">OpenWeatherMap</a></p>
+            <p>Data and icons: <a href="https://openweathermap.org" target="_blank"
+                    rel="noopener noreferrer">OpenWeatherMap</a></p>
         </footer>
     </div>
+
+    <template id="t-weather-icon">
+        <style>
+            figure {
+                display: flex;
+                align-items: center;
+                margin: 0;
+            }
+
+            img {
+                margin-right: 1em;
+                background-color: #ffffff;
+            }
+
+            figcaption {
+                font-size: 0.875rem;
+            }
+        </style>
+        <figure>
+            <img src="" alt="" aria-hidden="true" />
+            <figcaption></figcaption>
+        </figure>
+    </template>
 </body>
 
 </html>

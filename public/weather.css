@@ -101,23 +101,6 @@ dt {
     background-color: #F9D5CD;
 }
 
-.forecast img {
-    background-color: #ffffff;
-}
-
-figure {
-    display: flex;
-    align-items: center;
-}
-
-figure > img {
-    margin-right: 1em;
-}
-
-figcaption {
-    font-size: 0.875rem;
-}
-
 footer {
     font-size: 0.875rem;
     font-style: italic;
