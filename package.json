@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Weather app",
   "main": "app.js",
-  "repository": "git@gitlab.com:jashaj/weatherinfo.git",
-  "author": "Jasha Joachimsthal <jashaj@gmail.com>",
+  "repository": "git@github.com:jashaj/weatherinfo.git",
+  "author": "Jasha Joachimsthal <jasha@jasha.eu>",
   "license": "MIT",
   "private": true,
   "dependencies": {
