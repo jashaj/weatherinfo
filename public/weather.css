@@ -22,7 +22,7 @@ body {
     margin: 0 auto;
 }
 
-p {
+dl, p {
     margin: 1em 0;
 }
 
@@ -63,6 +63,10 @@ button:hover {
     text-decoration: underline;
 }
 
+dt {
+    font-weight: bold;
+}
+
 .alert {
     border: 1px solid red;
     border-radius: 1px;
@@ -95,23 +99,6 @@ button:hover {
 
 .forecast tbody tr:nth-child(2n + 1) {
     background-color: #F9D5CD;
-}
-
-.forecast img {
-    background-color: #ffffff;
-}
-
-figure {
-    display: flex;
-    align-items: center;
-}
-
-figure > img {
-    margin-right: 1em;
-}
-
-figcaption {
-    font-size: 0.875rem;
 }
 
 footer {
