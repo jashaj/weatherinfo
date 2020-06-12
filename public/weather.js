@@ -64,7 +64,7 @@ import {renderCurrentWeather} from './js/current_weather.js';
   }
 
   function geolocationSuccess(pos) {
-    var crd = pos.coords;
+    const crd = pos.coords;
 
     weatherApi.getCurrentForCoordinates(crd.longitude, crd.latitude)
         .then(updateUrlAndTitle)
