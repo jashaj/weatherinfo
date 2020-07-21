@@ -1,5 +1,7 @@
 # Weather info
 
+[![Build status](https://github.com/jashaj/weatherinfo/workflows/Node.js%20CI/badge.svg)](https://github.com/jashaj/weatherinfo/actions)
+
 This project creates a webpage that shows the weather. It fetches the weather information from [OpenWeather](https://openweathermap.org).
 
 I have used this project to _experiment_ with [web components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) and [modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) in Vanilla JavaScript. Don't expect shiny, clean code.
