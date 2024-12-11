@@ -6,6 +6,7 @@ const express = require('express');
 const https = require('https');
 const proxy = require('express-http-proxy');
 const app = express();
+app.disable('x-powered-by');
 const port = 3000;
 
 const serverKey = fs.readFileSync('./private/server.key', 'utf8');
