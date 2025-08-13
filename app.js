@@ -18,9 +18,7 @@ const options = {
 
 app.use('/api', proxy('https://api.openweathermap.org', {
     filter: (req) => {
-        return new Promise(resolve => {
-            resolve(req.method === 'GET');
-        });
+        return Promise.resolve(req.method === 'GET');
     },
     proxyReqPathResolver: (req) => {
         return `/data/2.5${req.url}&appId=${api.API_KEY}`;
